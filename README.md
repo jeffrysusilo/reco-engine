@@ -1,14 +1,10 @@
-# 🚀 Distributed Real-Time Recommendation Engine
 
-> A production-ready, hybrid recommendation system built with **Golang** for e-commerce platforms like **Tokopedia**.
 
 [![Go Version](https://img.shields.io/badge/Go-1.21+-00ADD8?style=flat&logo=go)](https://go.dev/)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat&logo=docker)](docker-compose.yml)
 
 A hybrid (real-time + offline) recommendation system that collects user interaction events, processes them in real-time for fast scoring (popularity, co-view, session-based), and uses offline models (embeddings/collaborative filtering) for high-quality recommendations.
 
-## 🎯 Perfect for Tokopedia Interview
 
 This project demonstrates:
 - ✅ **Production-grade Go microservices**
@@ -412,67 +408,6 @@ k6 run scripts/load_test_k6.js
 curl "http://localhost:8081/recommendations?user_id=1&count=10"
 ```
 
-## 🎓 Algorithms
-
-### Real-Time Signals
-
-#### 1. Co-View Matrix
-Items frequently viewed together in user sessions.
-```
-For each event:
-  recent_items = GET user:recent:{user_id}
-  For each item in recent_items:
-    ZINCRBY co_view:{item_id} 1 {event.item_id}
-```
-
-#### 2. Popularity Scoring
-Weighted by event importance:
-- **VIEW**: 1.0
-- **CLICK**: 3.0
-- **CART**: 5.0
-- **PURCHASE**: 10.0
-
-#### 3. Session-Based
-User's recent interaction history (last 50 items).
-
-### Scoring Formula
-
-```
-final_score = w₁·co_view_score + w₂·embedding_score + w₃·popularity_score + w₄·recency_score
-```
-
-**Default weights**: `{coview: 0.4, embedding: 0.3, popularity: 0.2, recency: 0.1}`
-
-### Future: Offline Models
-- **Item2Vec**: Skip-gram embeddings on user sessions
-- **Matrix Factorization**: ALS for implicit feedback
-- **ANN Search**: Milvus/Faiss for vector similarity
-
-## 🌟 Why This Stack?
-
-### Golang
-- ✅ High performance & low latency
-- ✅ Excellent concurrency (goroutines)
-- ✅ Small memory footprint
-- ✅ Fast compilation & deployment
-
-### Kafka
-- ✅ High throughput event streaming
-- ✅ Fault-tolerant & durable
-- ✅ Horizontal scalability
-- ✅ Industry standard
-
-### Redis
-- ✅ Sub-millisecond latency
-- ✅ Rich data structures (lists, sorted sets)
-- ✅ Perfect for feature store
-- ✅ Built-in caching
-
-### PostgreSQL
-- ✅ Reliable & ACID compliant
-- ✅ Rich query capabilities
-- ✅ JSON support for metadata
-- ✅ Great for analytics
 
 ## 🚢 Production Deployment
 
@@ -502,15 +437,6 @@ Production considerations:
 - ✅ GDPR compliance (user opt-out, data anonymization)
 - ✅ Network isolation (VPC/private subnets)
 
-## 📈 Performance Targets
-
-| Metric | Target | Actual |
-|--------|--------|--------|
-| Event ingestion (P99) | < 50ms | ~30ms |
-| Recommendation API (P99) | < 100ms | ~80ms |
-| Stream processing lag | < 5s | ~2s |
-| Cache hit ratio | > 80% | ~85% |
-| Throughput | 10k req/s | Scalable |
 
 ## 🎯 Use Cases
 
@@ -521,85 +447,6 @@ Perfect for:
 - 📱 **Mobile apps** - In-app recommendations
 - 🏪 **Retail** - Cross-sell & upsell
 
-## 🤝 Contributing
-
-We welcome contributions! See **[CONTRIBUTING.md](CONTRIBUTING.md)** for guidelines.
-
-### How to Contribute
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the **[LICENSE](LICENSE)** file for details.
-
-## 🙏 Acknowledgments
-
-- Inspired by production recommendation systems at major e-commerce companies
-- Built with modern best practices for microservices
-- Designed to showcase skills for Tokopedia interview
-
-## 📞 Support & Contact
-
-- 📖 **Documentation**: See `docs/` folder
-- 🐛 **Bug Reports**: Open an issue on GitHub
-- 💡 **Feature Requests**: Open an issue with label `enhancement`
-- ❓ **Questions**: Check GETTING_STARTED.md or open a discussion
-
-## 🎓 Learning Resources
-
-Want to learn more?
-- **Golang**: https://go.dev/doc/
-- **Kafka**: https://kafka.apache.org/documentation/
-- **Redis**: https://redis.io/documentation
-- **Recommendation Systems**: [Research papers and tutorials]
-- **Microservices**: [Best practices guides]
-
-## 📊 Project Stats
-
-- **Lines of Code**: ~3,500+ (Go + YAML + SQL)
-- **Files**: 40+ source files
-- **Services**: 3 microservices
-- **Dependencies**: Minimal, production-grade
-- **Documentation**: Comprehensive (8+ docs)
-- **Test Coverage**: Unit tests included
-
-## 🚀 Roadmap
-
-### v1.0 (Current) ✅
-- Real-time event processing
-- Basic recommendation algorithms
-- Full observability
-
-### v2.0 (Planned)
-- [ ] Offline training pipeline (Python/Go)
-- [ ] ANN integration (Milvus/Faiss)
-- [ ] A/B testing framework
-- [ ] Advanced ML models
-- [ ] User authentication
-- [ ] Admin dashboard
-
-### v3.0 (Future)
-- [ ] Multi-region deployment
-- [ ] Advanced personalization
-- [ ] Real-time model updates
-- [ ] Contextual recommendations
-- [ ] Deep learning integration
-
----
-
-## ⭐ Star This Project!
-
-If you find this project useful, please give it a star! It helps others discover it.
-
-**Built with ❤️ for the Tokopedia interview**
-
-**Good luck! 🚀**
-
----
 
 ### Quick Links
 
