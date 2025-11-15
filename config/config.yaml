@@ -1,0 +1,66 @@
+server:
+  ingest:
+    host: "0.0.0.0"
+    port: 8080
+  api:
+    host: "0.0.0.0"
+    port: 8081
+
+kafka:
+  brokers:
+    - "localhost:9092"
+  topics:
+    events: "events"
+  consumer_group: "reco-processor"
+
+redis:
+  addr: "localhost:6379"
+  password: ""
+  db: 0
+  max_retries: 3
+  pool_size: 10
+
+postgres:
+  host: "localhost"
+  port: 5432
+  user: "reco"
+  password: "secret"
+  database: "reco"
+  sslmode: "disable"
+  max_open_conns: 25
+  max_idle_conns: 5
+
+processing:
+  batch_size: 100
+  flush_interval: "5s"
+  recent_items_limit: 50
+  coview_window: 20
+  
+recommendation:
+  default_count: 10
+  max_count: 100
+  cache_ttl: "5m"
+  popularity_decay: 0.95
+  
+  weights:
+    coview: 0.4
+    embedding: 0.3
+    popularity: 0.2
+    recency: 0.1
+
+event_weights:
+  VIEW: 1.0
+  CLICK: 3.0
+  CART: 5.0
+  PURCHASE: 10.0
+
+observability:
+  metrics:
+    enabled: true
+    port: 9090
+  tracing:
+    enabled: true
+    endpoint: "http://localhost:14268/api/traces"
+  logging:
+    level: "info"
+    format: "json"
